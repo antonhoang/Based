@@ -76,6 +76,13 @@ final class NetworkManagerTests: XCTestCase {
         wait(for: [expectation], timeout: 5)
     }
     
+    func testEncodingData() throws {
+        let todo = TodoMock(userId: 1, id: 1, title: "Do something", completed: false)
+        let encodedData = try networkManager.encodeData(data: todo)
+        let json = try XCTUnwrap(String(data: encodedData, encoding: .utf8))
+        let expected = "{\"id\":1,\"title\":\"Do something\",\"userId\":1,\"completed\":false}"
+        XCTAssertEqual(json, expected)
+    }
     
     struct TodoMock: Codable {
         let userId: Int

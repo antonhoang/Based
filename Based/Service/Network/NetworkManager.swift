@@ -70,4 +70,10 @@ class NetworkManager {
         tasks[url]?.cancel()
         tasks[url] = nil
     }
+    
+    func encodeData<T: Encodable>(data: T) throws -> Data {
+        let encoder = JSONEncoder()
+        let encodedData = try encoder.encode(data)
+        return encodedData
+    }
 }
