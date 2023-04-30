@@ -12,6 +12,10 @@
 		7A41AA6B29FED1DF009A50E4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA6A29FED1DF009A50E4 /* NetworkManager.swift */; };
 		7A41AA7329FED263009A50E4 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA7229FED263009A50E4 /* NetworkManagerTests.swift */; };
 		7A41AA7B29FF0987009A50E4 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA7A29FF0987009A50E4 /* SpeechRecognizer.swift */; };
+		7A41AA7D29FF0AED009A50E4 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA7C29FF0AED009A50E4 /* HTTPMethod.swift */; };
+		7A41AA7F29FF0B06009A50E4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA7E29FF0B06009A50E4 /* NetworkError.swift */; };
+		7A41AA8129FF0B17009A50E4 /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA8029FF0B17009A50E4 /* HTTPRequest.swift */; };
+		7A41AA8329FF0B33009A50E4 /* GetRequestExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA8229FF0B33009A50E4 /* GetRequestExample.swift */; };
 		7A77351129E7F4FA000F4FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77351029E7F4FA000F4FFA /* AppDelegate.swift */; };
 		7A77351329E7F4FA000F4FFA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77351229E7F4FA000F4FFA /* SceneDelegate.swift */; };
 		7A77351529E7F4FA000F4FFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77351429E7F4FA000F4FFA /* ViewController.swift */; };
@@ -37,6 +41,10 @@
 		7A41AA7029FED263009A50E4 /* BasedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BasedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A41AA7229FED263009A50E4 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		7A41AA7A29FF0987009A50E4 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
+		7A41AA7C29FF0AED009A50E4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		7A41AA7E29FF0B06009A50E4 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		7A41AA8029FF0B17009A50E4 /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
+		7A41AA8229FF0B33009A50E4 /* GetRequestExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRequestExample.swift; sourceTree = "<group>"; };
 		7A77350D29E7F4FA000F4FFA /* Based.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Based.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A77351029E7F4FA000F4FFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A77351229E7F4FA000F4FFA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +93,10 @@
 			isa = PBXGroup;
 			children = (
 				7A41AA6A29FED1DF009A50E4 /* NetworkManager.swift */,
+				7A41AA7C29FF0AED009A50E4 /* HTTPMethod.swift */,
+				7A41AA7E29FF0B06009A50E4 /* NetworkError.swift */,
+				7A41AA8029FF0B17009A50E4 /* HTTPRequest.swift */,
+				7A41AA8229FF0B33009A50E4 /* GetRequestExample.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -262,8 +274,12 @@
 				7A41AA6B29FED1DF009A50E4 /* NetworkManager.swift in Sources */,
 				7A77351529E7F4FA000F4FFA /* ViewController.swift in Sources */,
 				7A77351129E7F4FA000F4FFA /* AppDelegate.swift in Sources */,
+				7A41AA7D29FF0AED009A50E4 /* HTTPMethod.swift in Sources */,
 				7A77351329E7F4FA000F4FFA /* SceneDelegate.swift in Sources */,
+				7A41AA7F29FF0B06009A50E4 /* NetworkError.swift in Sources */,
+				7A41AA8129FF0B17009A50E4 /* HTTPRequest.swift in Sources */,
 				7A41AA6829FED05D009A50E4 /* Helpers.swift in Sources */,
+				7A41AA8329FF0B33009A50E4 /* GetRequestExample.swift in Sources */,
 				7A41AA6629FED057009A50E4 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
