@@ -10,6 +10,13 @@ import AVFoundation
 import Speech
 import SwiftUI
 
+#warning("setup info plist in target project before using speech recognizer")
+/*Select the Privacy - Speech Recognition Usage Description key, and enter the value “You can view a text transcription of your meeting in the app.”
+ 
+ Add the Privacy - Microphone Usage Description key and enter the value “Audio is recorded to transcribe the meeting. Audio recordings are discarded after transcription.”
+
+ */
+
 /// A helper for transcribing speech to text using SFSpeechRecognizer and AVAudioEngine.
 actor SpeechRecognizer: ObservableObject {
     enum RecognizerError: Error {
