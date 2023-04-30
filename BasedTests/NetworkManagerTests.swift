@@ -84,6 +84,29 @@ final class NetworkManagerTests: XCTestCase {
         XCTAssertEqual(json, expected)
     }
     
+    func testDownloadData() {
+        let url = URL(string: "https://jsonplaceholder.typicode.com/posts/1")!
+        let expectation = XCTestExpectation(description: "Data download completed")
+        var result: Result<Data, Error>?
+        
+        _ = networkManager.downloadData(url: url, completion: {
+            result = $0
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 5)
+        XCTAssertNotNil(result)
+        
+        switch result {
+        case .success(let data):
+            XCTAssertNotNil(data)
+        case .failure(let error):
+            XCTFail("Unexpected error: \(error)")
+        case .none:
+            XCTFail("Expected result, got none")
+        }
+    }
+    
     struct TodoMock: Codable {
         let userId: Int
         let id: Int
