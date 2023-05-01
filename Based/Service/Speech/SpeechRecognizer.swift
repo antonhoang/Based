@@ -66,9 +66,9 @@ actor SpeechRecognizer: ObservableObject {
         }
     }
     
-    @MainActor func startTranscribing() {
+    @MainActor func startTranscribing(completion: @escaping (String) -> ()) {
         Task {
-            await transcribe()
+            await transcribe(completion: completion)
         }
     }
     
@@ -90,7 +90,7 @@ actor SpeechRecognizer: ObservableObject {
      Creates a `SFSpeechRecognitionTask` that transcribes speech to text until you call `stopTranscribing()`.
      The resulting transcription is continuously written to the published `transcript` property.
      */
-    private func transcribe() {
+    private func transcribe(completion: @escaping (String) -> ()) {
         guard let recognizer, recognizer.isAvailable else {
             self.transcribe(RecognizerError.recognizerIsUnavailable)
             return
@@ -101,8 +101,12 @@ actor SpeechRecognizer: ObservableObject {
             self.audioEngine = audioEngine
             self.request = request
             self.task = recognizer.recognitionTask(with: request, resultHandler: { [weak self] result, error in
-                print("result -> \(result)")
-                self?.recognitionHandler(audioEngine: audioEngine, result: result, error: error)
+                self?.recognitionHandler(
+                    audioEngine: audioEngine,
+                    result: result,
+                    error: error,
+                    completion: completion
+                )
             })
         } catch {
             self.reset()
@@ -140,7 +144,7 @@ actor SpeechRecognizer: ObservableObject {
         return (audioEngine, request)
     }
     
-    nonisolated private func recognitionHandler(audioEngine: AVAudioEngine, result: SFSpeechRecognitionResult?, error: Error?) {
+    nonisolated private func recognitionHandler(audioEngine: AVAudioEngine, result: SFSpeechRecognitionResult?, error: Error?, completion: @escaping (String) -> ()) {
         let receivedFinalResult = result?.isFinal ?? false
         let receivedError = error != nil
         
@@ -150,7 +154,9 @@ actor SpeechRecognizer: ObservableObject {
         }
         
         if let result {
-            transcribe(result.bestTranscription.formattedString)
+            let bestResult = result.bestTranscription.formattedString
+            transcribe(bestResult)
+            completion(bestResult)
         }
     }
     

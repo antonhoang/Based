@@ -12,35 +12,58 @@ class HomeViewController: UIViewController {
     let sr = SpeechRecognizer()
     
     let dictationButton = UIButton()
-    let dictationTextResult = UILabel()
+    let dictationTextResult = UITextView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        dictationButton.backgroundColor = .cyan
-        dictationTextResult.backgroundColor = .brown
+        view.backgroundColor = .systemGray2
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 50, weight: .bold)
+        let image = UIImage(
+            systemName: "mic.square.fill",
+            withConfiguration: symbolConfiguration
+        )?.withTintColor(.black)
+        dictationButton.setImage(image, for: .normal)
+
+        dictationTextResult.backgroundColor = .systemGray3
+        dictationTextResult.textAlignment = .left
+        dictationTextResult.contentMode = .topLeft
+        dictationTextResult.layer.cornerRadius = 13
+        dictationTextResult.font = .systemFont(ofSize: 24, weight: .regular)
         
         view.addSubview(dictationButton)
         view.addSubview(dictationTextResult)
         dictationButton.translatesAutoresizingMaskIntoConstraints = false
         dictationTextResult.translatesAutoresizingMaskIntoConstraints = false
+        
+        var notchHeightConstantSpace: CGFloat = 12
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let topPadding = windowScene.windows.first?.safeAreaInsets.top {
+            let notchHeight = topPadding > 0 ? topPadding - 20 : 0
+            notchHeightConstantSpace += notchHeight
+        }
+        
         NSLayoutConstraint.activate([
+            dictationTextResult.topAnchor.constraint(equalTo: view.topAnchor, constant: notchHeightConstantSpace),
+            dictationTextResult.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            dictationTextResult.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            dictationTextResult.heightAnchor.constraint(equalToConstant: (view.frame.height / 1.5)),
             dictationButton.widthAnchor.constraint(equalToConstant: 50),
             dictationButton.heightAnchor.constraint(equalToConstant: 50),
             dictationButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            dictationButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            dictationTextResult.topAnchor.constraint(equalTo: dictationButton.bottomAnchor),
-            dictationTextResult.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            dictationTextResult.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            dictationTextResult.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            dictationButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
         ])
         dictationButton.addTarget(self, action: #selector(handleDictation), for: .touchUpInside)
-
     }
     
     @objc func handleDictation() {
-        sr.startTranscribing()
-        dictationTextResult.text =  sr.transcript 
+        sr.resetTranscript()
+        sr.startTranscribing(completion: { [weak self] speechResult in
+            self?.dictationTextResult.text = speechResult
+        })
+    }
+    
+    func endDictation() {
+        sr.stopTranscribing()
     }
     
 }
