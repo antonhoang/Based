@@ -8,7 +8,6 @@
 import Foundation
 import AVFoundation
 import Speech
-import SwiftUI
 
 #warning("setup info plist in target project before using speech recognizer")
 /*Select the Privacy - Speech Recognition Usage Description key, and enter the value “You can view a text transcription of your meeting in the app.”
@@ -102,6 +101,7 @@ actor SpeechRecognizer: ObservableObject {
             self.audioEngine = audioEngine
             self.request = request
             self.task = recognizer.recognitionTask(with: request, resultHandler: { [weak self] result, error in
+                print("result -> \(result)")
                 self?.recognitionHandler(audioEngine: audioEngine, result: result, error: error)
             })
         } catch {
