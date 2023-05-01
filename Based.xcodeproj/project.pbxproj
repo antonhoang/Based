@@ -17,6 +17,7 @@
 		7A41AA8129FF0B17009A50E4 /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA8029FF0B17009A50E4 /* HTTPRequest.swift */; };
 		7A41AA8329FF0B33009A50E4 /* GetRequestExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA8229FF0B33009A50E4 /* GetRequestExample.swift */; };
 		7A41AA862A0003C2009A50E4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA852A0003C2009A50E4 /* HomeViewController.swift */; };
+		7A41AA892A0015E2009A50E4 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA882A0015E2009A50E4 /* AudioRecorder.swift */; };
 		7A77351129E7F4FA000F4FFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77351029E7F4FA000F4FFA /* AppDelegate.swift */; };
 		7A77351329E7F4FA000F4FFA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77351229E7F4FA000F4FFA /* SceneDelegate.swift */; };
 		7A77351529E7F4FA000F4FFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77351429E7F4FA000F4FFA /* ViewController.swift */; };
@@ -47,6 +48,7 @@
 		7A41AA8029FF0B17009A50E4 /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
 		7A41AA8229FF0B33009A50E4 /* GetRequestExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRequestExample.swift; sourceTree = "<group>"; };
 		7A41AA852A0003C2009A50E4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		7A41AA882A0015E2009A50E4 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		7A77350D29E7F4FA000F4FFA /* Based.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Based.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A77351029E7F4FA000F4FFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A77351229E7F4FA000F4FFA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +130,14 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		7A41AA872A0015C9009A50E4 /* Recorder */ = {
+			isa = PBXGroup;
+			children = (
+				7A41AA882A0015E2009A50E4 /* AudioRecorder.swift */,
+			);
+			path = Recorder;
+			sourceTree = "<group>";
+		};
 		7A77350429E7F4FA000F4FFA = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +176,7 @@
 		7A77352429E7F8F4000F4FFA /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				7A41AA872A0015C9009A50E4 /* Recorder */,
 				7A41AA7929FF090E009A50E4 /* Speech */,
 				7A41AA6929FED0CF009A50E4 /* Network */,
 			);
@@ -289,6 +300,7 @@
 				7A77351329E7F4FA000F4FFA /* SceneDelegate.swift in Sources */,
 				7A41AA7F29FF0B06009A50E4 /* NetworkError.swift in Sources */,
 				7A41AA8129FF0B17009A50E4 /* HTTPRequest.swift in Sources */,
+				7A41AA892A0015E2009A50E4 /* AudioRecorder.swift in Sources */,
 				7A41AA6829FED05D009A50E4 /* Helpers.swift in Sources */,
 				7A41AA8329FF0B33009A50E4 /* GetRequestExample.swift in Sources */,
 				7A41AA6629FED057009A50E4 /* Extensions.swift in Sources */,
