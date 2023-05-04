@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+infix operator ?= : AssignmentPrecedence
+
+extension Optional {
+    public static func ?= (lhs: inout Wrapped, rhs: inout Wrapped?) {
+        guard let value = rhs else {
+            return
+        }
+        lhs = value
+    }
+}
