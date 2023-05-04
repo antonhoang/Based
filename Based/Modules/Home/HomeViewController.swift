@@ -28,6 +28,54 @@ class HomeViewController: UIViewController {
         setupSettingsButton()
     }
     
+    @objc func handleTranscribeAudioToText() {
+        endRecording()
+        if let url = audioRecorder.getRecordedAudioURL() {
+            try? audioRecorder.playRecordedAudio(at: url)
+        }
+        speechRecognizer.resetTranscript()
+        speechRecognizer.startTranscribing(completion: { [weak self] speechResult in
+            self?.dictationTextResult?.text = speechResult
+        })
+        isRecording = true
+    }
+        
+    @objc func handleSpeechRecognition() {
+        speechRecognizer.resetTranscript()
+        speechRecognizer.startTranscribing(completion: { [weak self] speechResult in
+            self?.dictationTextResult?.text = speechResult
+        })
+    }
+    
+    @objc func handleRecordAudio() {
+        if isRecording {
+            endRecording()
+            isRecording = false
+        } else {
+            try? audioRecorder.startRecording()
+            isRecording = true
+        }
+    }
+    
+    @objc func handlePlayRecordedAudio() {
+        endRecording()
+        if let url = audioRecorder.getRecordedAudioURL() {
+            try? audioRecorder.playRecordedAudio(at: url)
+        }
+    }
+    
+    @objc func handleSettings() {
+        
+    }
+    
+    private func endRecording() {
+        audioRecorder.stopRecording()
+    }
+    
+    private func endDictation() {
+        speechRecognizer.stopTranscribing()
+    }
+    
     private func setupSettingsButton() {
         let gearButton = UIButton()
         let symbolGearConfiguration = UIImage.SymbolConfiguration(pointSize: 50, weight: .bold)
@@ -92,7 +140,7 @@ class HomeViewController: UIViewController {
             systemName: "play.circle.fill",
             withConfiguration: symbolListenConfiguration
         )?.withTintColor(.black)
-        listenRecordButton.addTarget(self, action: #selector(handleRecord), for: .touchUpInside)
+        listenRecordButton.addTarget(self, action: #selector(handlePlayRecordedAudio), for: .touchUpInside)
         listenRecordButton.setImage(listenImage, for: .normal)
         listenRecordButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(listenRecordButton)
@@ -129,7 +177,7 @@ class HomeViewController: UIViewController {
             systemName: "mic.circle.fill",
             withConfiguration: symbolDictationConfiguration
         )?.withTintColor(.black)
-        dictationButton.addTarget(self, action: #selector(handleDictation), for: .touchUpInside)
+        dictationButton.addTarget(self, action: #selector(handleSpeechRecognition), for: .touchUpInside)
         dictationButton.setImage(dictationImage, for: .normal)
         dictationButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(dictationButton)
@@ -165,56 +213,6 @@ class HomeViewController: UIViewController {
             dictationTextResult.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
             dictationTextResult.heightAnchor.constraint(equalToConstant: (view.frame.height / 1.5))
         ])
-    }
-    
-    @objc func handleTranscribeAudioToText() {
-        endRecording()
-        if let url = audioRecorder.getRecordedAudioURL() {
-            try? audioRecorder.playRecordedAudio(at: url)
-        }
-        speechRecognizer.resetTranscript()
-        speechRecognizer.startTranscribing(completion: { [weak self] speechResult in
-            self?.dictationTextResult?.text = speechResult
-        })
-        isRecording = true
-    }
-        
-    @objc func handleDictation() {
-        if isRecording {
-//            endDictation()
-            endRecording()
-            isRecording = false
-        } else {
-            speechRecognizer.resetTranscript()
-            try? audioRecorder.startRecording()
-//            sr.startTranscribing(completion: { [weak self] speechResult in
-//                self?.dictationTextResult?.text = speechResult
-//            })
-            isRecording = true
-        }
-    }
-    
-    @objc func handleRecordAudio() {
-        
-    }
-    
-    @objc func handleSettings() {
-        
-    }
-    
-    @objc func handleRecord() {
-        endRecording()
-        if let url = audioRecorder.getRecordedAudioURL() {
-            try? audioRecorder.playRecordedAudio(at: url)            
-        }
-    }
-    
-    func endRecording() {
-        audioRecorder.stopRecording()
-    }
-    
-    func endDictation() {
-        speechRecognizer.stopTranscribing()
     }
     
 }
