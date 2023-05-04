@@ -8,9 +8,10 @@
 import Foundation
 import AVFoundation
 
-class Recorder {
+class AudioRecorder {
     var audioRecorder: AVAudioRecorder?
     var recordingSession: AVAudioSession?
+    var audioPlayer: AVAudioPlayer?
     
     func startRecording() throws {
         recordingSession = AVAudioSession.sharedInstance()
@@ -31,6 +32,7 @@ class Recorder {
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
             audioRecorder?.record()
+            
         } catch {
             throw RecordingError.recordingSetupError
         }
@@ -38,7 +40,7 @@ class Recorder {
     
     func stopRecording() {
         audioRecorder?.stop()
-        audioRecorder = nil
+//        audioRecorder = nil
         recordingSession = nil
     }
     
@@ -55,6 +57,9 @@ class Recorder {
     func playRecordedAudio(at url: URL) throws {
         do {
             let audioPlayer = try AVAudioPlayer(contentsOf: url)
+            self.audioPlayer = audioPlayer
+            audioPlayer.prepareToPlay()
+            audioPlayer.volume = 1.0
             audioPlayer.play()
         } catch {
             throw PlaybackError.audioPlayerSetupError
@@ -65,6 +70,7 @@ class Recorder {
 
 enum PlaybackError: Error {
     case audioPlayerSetupError
+    case audioSessionSetupError
 }
 
 enum RecordingError: Error {
