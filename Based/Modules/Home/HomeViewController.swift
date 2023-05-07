@@ -9,6 +9,186 @@ import UIKit
 import Foundation
 import AVFoundation
 
+class AudioViewCell: UITableViewCell {
+    
+    var isExpanded = false {
+        didSet {
+            updateViewVisibility()
+        }
+    }
+    
+    private let additionalView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
+    let additionalViewHeight: CGFloat = 100
+    
+    private func updateViewVisibility() {
+        additionalView.isHidden = !isExpanded
+        additionalView.frame.size.height = isExpanded ? additionalViewHeight : 0
+    }
+    
+    // Declare and configure any necessary UI elements
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        // Configure the label's appearance
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.textColor = .black
+        return label
+    }()
+    
+    let detailLabel: UILabel = {
+        let label = UILabel()
+        // Configure the detail label's appearance
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .gray
+        return label
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        // Add the subviews to the cell's contentView
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(detailLabel)
+        contentView.addSubview(additionalView)
+        
+        // Configure the layout and constraints for the subviews
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        detailLabel.translatesAutoresizingMaskIntoConstraints = false
+        additionalView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            detailLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
+            detailLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            additionalView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            additionalView.topAnchor.constraint(equalTo: detailLabel.bottomAnchor, constant: 8),
+            additionalView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            additionalView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        ])
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if isExpanded {
+            additionalView.isHidden = false
+            additionalView.frame = CGRect(
+                x: 0,
+                y: contentView.frame.size.height,
+                width: contentView.frame.size.width,
+                height: additionalViewHeight
+            )
+        } else {
+            additionalView.isHidden = true
+            additionalView.frame = CGRect(
+                x: 0,
+                y: contentView.frame.size.height,
+                width: contentView.frame.size.width,
+                height: 0
+            )
+        }
+    }
+}
+
+class AudioFilesListController: UIViewController {
+    fileprivate let AudioViewCellID = "AudioViewCell"
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+    }
+    
+    private func setupUI() {
+        navigationItem.title = "All Recordings"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        let tableView = UITableView(frame: view.bounds)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(AudioViewCell.self, forCellReuseIdentifier: AudioViewCellID)
+        view.addSubview(tableView)
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Search"
+        searchController.searchBar.tintColor = .white
+        navigationItem.searchController = searchController
+        
+        // Define whether the search bar is always visible or only visible when scrolling
+        definesPresentationContext = false
+    }
+    var expandedIndexPath: IndexPath?
+
+}
+
+extension AudioFilesListController: UISearchBarDelegate {
+    
+}
+
+extension AudioFilesListController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 30
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: AudioViewCellID, for: indexPath) as! AudioViewCell
+        cell.titleLabel.text = "Novaya zapis' 1"
+        cell.detailLabel.text = "12 sep 2021"
+        let durationLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 80, height: 20))
+        durationLabel.textColor = .gray
+        durationLabel.font = UIFont.systemFont(ofSize: 14)
+        durationLabel.textAlignment = .center
+        durationLabel.text = "1:01:00"
+        cell.accessoryView = durationLabel
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? AudioViewCell else {
+            return
+        }
+        
+        if cell.isExpanded {
+            tableView.deselectRow(at: indexPath, animated: true)
+        } else {
+            deselectExpandedRows(tableView)
+            tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+        }
+        cell.isExpanded.toggle()
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+    
+    private func deselectExpandedRows(_ tableView: UITableView) {
+        for indexPath in tableView.indexPathsForVisibleRows ?? [] {
+            if let cell = tableView.cellForRow(at: indexPath) as? AudioViewCell, cell.isExpanded {
+                cell.isExpanded = false
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let cell = tableView.cellForRow(at: indexPath) as? AudioViewCell, cell.isExpanded {
+            return cell.contentView.frame.size.height + cell.additionalViewHeight
+        } else {
+            return UITableView.automaticDimension
+        }
+    }
+}
+
 class HomeViewController: UIViewController {
 
     private let speechRecognizer = SpeechRecognizer()
