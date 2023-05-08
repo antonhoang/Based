@@ -14,6 +14,7 @@ class AudioFilesListController: UIViewController {
     private weak var recordButton: UIButton!
     private weak var promtView: UIView!
     private var outerBorderLayer: CALayer?
+    private weak var promtButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +50,7 @@ class AudioFilesListController: UIViewController {
         view.addSubview(promtView)
         
         NSLayoutConstraint.activate([
-            promtView.heightAnchor.constraint(equalToConstant: 160),
+            promtView.heightAnchor.constraint(equalToConstant: 150),
             promtView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
             promtView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             promtView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -61,12 +62,34 @@ class AudioFilesListController: UIViewController {
         self.recordButton = recordButton
         recordButton.addTarget(self, action: #selector(recordButtonTapped), for: .touchUpInside)
         promtView.addSubview(recordButton)
+        
+        let promtButton = UIButton(type: .system)
+        self.promtButton = promtButton
+        promtButton.translatesAutoresizingMaskIntoConstraints = false
+        promtButton.backgroundColor = .white
+        let arrowUpImage = UIImage(
+            systemName: "chevron.up.circle",
+            withConfiguration: UIImage.SymbolConfiguration(pointSize: 30)
+        )
+        promtButton.setImage(arrowUpImage, for: .normal)
+        promtButton.tintColor = .black
+        
+        promtView.addSubview(promtButton)
+        NSLayoutConstraint.activate([
+            promtButton.centerYAnchor.constraint(equalTo: promtView.centerYAnchor),
+            promtButton.leadingAnchor.constraint(equalTo: promtView.leadingAnchor, constant: 24),
+            promtButton.widthAnchor.constraint(equalToConstant: 30),
+            promtButton.heightAnchor.constraint(equalTo: promtButton.widthAnchor)
+        ])
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        let view2Width: CGFloat = 70 // Desired width of view2
-        let view2Height: CGFloat = 70 // Desired height of view2
+        promtButton.layer.cornerRadius = promtButton.bounds.width / 2
+        promtButton.layer.masksToBounds = true
+        
+        let view2Width: CGFloat = 60 // Desired width of view2
+        let view2Height: CGFloat = 60 // Desired height of view2
         
         let view2X = (promtView.frame.width - view2Width) / 2 // Calculate the x-coordinate for centering view2
         let view2Y = (promtView.frame.height - view2Height) / 2 // Calculate the y-coordinate for centering view2
