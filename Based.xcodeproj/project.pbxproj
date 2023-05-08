@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A2D38342A09183900F191DA /* AudioViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D38332A09183900F191DA /* AudioViewCell.swift */; };
+		7A2D38362A09189600F191DA /* AudioFilesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D38352A09189600F191DA /* AudioFilesListController.swift */; };
 		7A41AA6629FED057009A50E4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA6529FED057009A50E4 /* Extensions.swift */; };
 		7A41AA6829FED05D009A50E4 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA6729FED05D009A50E4 /* Helpers.swift */; };
 		7A41AA6B29FED1DF009A50E4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA6A29FED1DF009A50E4 /* NetworkManager.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A2D38332A09183900F191DA /* AudioViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewCell.swift; sourceTree = "<group>"; };
+		7A2D38352A09189600F191DA /* AudioFilesListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFilesListController.swift; sourceTree = "<group>"; };
 		7A41AA6529FED057009A50E4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7A41AA6729FED05D009A50E4 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		7A41AA6A29FED1DF009A50E4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				7A41AA852A0003C2009A50E4 /* HomeViewController.swift */,
+				7A2D38332A09183900F191DA /* AudioViewCell.swift */,
+				7A2D38352A09189600F191DA /* AudioFilesListController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -295,6 +301,8 @@
 				7A41AA7B29FF0987009A50E4 /* SpeechRecognizer.swift in Sources */,
 				7A41AA6B29FED1DF009A50E4 /* NetworkManager.swift in Sources */,
 				7A77351529E7F4FA000F4FFA /* ViewController.swift in Sources */,
+				7A2D38362A09189600F191DA /* AudioFilesListController.swift in Sources */,
+				7A2D38342A09183900F191DA /* AudioViewCell.swift in Sources */,
 				7A77351129E7F4FA000F4FFA /* AppDelegate.swift in Sources */,
 				7A41AA7D29FF0AED009A50E4 /* HTTPMethod.swift in Sources */,
 				7A77351329E7F4FA000F4FFA /* SceneDelegate.swift in Sources */,
