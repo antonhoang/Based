@@ -49,6 +49,17 @@ class AudioViewCell: UITableViewCell {
         return label
     }()
     
+    private let shareButton: UIButton = {
+        let share = UIButton()
+        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold)
+        let image = UIImage(
+            systemName: "square.and.arrow.up",
+            withConfiguration: config
+        )
+        share.setImage(image, for: .normal)
+        return share
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -57,12 +68,15 @@ class AudioViewCell: UITableViewCell {
         contentView.addSubview(detailLabel)
         contentView.addSubview(durationLabel)
         contentView.addSubview(additionalView)
+        contentView.addSubview(shareButton)
+        
         
         // Configure the layout and constraints for the subviews
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         detailLabel.translatesAutoresizingMaskIntoConstraints = false
         durationLabel.translatesAutoresizingMaskIntoConstraints = false
         additionalView.translatesAutoresizingMaskIntoConstraints = false
+        shareButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -79,6 +93,9 @@ class AudioViewCell: UITableViewCell {
             additionalView.topAnchor.constraint(equalTo: detailLabel.bottomAnchor, constant: 8),
             additionalView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             additionalView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            shareButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            shareButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         ])
     }
     
@@ -91,6 +108,8 @@ class AudioViewCell: UITableViewCell {
         
         if isExpanded {
             additionalView.isHidden = false
+            shareButton.isHidden = false
+            durationLabel.isHidden = true
             additionalView.frame = CGRect(
                 x: 0,
                 y: contentView.frame.size.height,
@@ -99,6 +118,8 @@ class AudioViewCell: UITableViewCell {
             )
         } else {
             additionalView.isHidden = true
+            shareButton.isHidden = true
+            durationLabel.isHidden = false
             additionalView.frame = CGRect(
                 x: 0,
                 y: contentView.frame.size.height,
