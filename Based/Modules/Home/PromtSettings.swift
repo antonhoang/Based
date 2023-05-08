@@ -14,13 +14,15 @@ class PromtSettingsController: UIViewController {
     private weak var topToolbarContainerView: UIView!
     private weak var firstSectionView: UIView!
     private weak var playbackSpeedLabel: UILabel!
+    private weak var secondSectionView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGray2
         setupTopToolbar()
         setupPlaybackSpeedLabel()
         setupFirstSectionView()
+        setupSecondSectionView()
     }
     
     private func setupPlaybackSpeedLabel() {
@@ -38,7 +40,7 @@ class PromtSettingsController: UIViewController {
     
     private func setupFirstSectionView() {
         let firstSectionView = UIView()
-        firstSectionView.backgroundColor = .systemGray3
+        firstSectionView.backgroundColor = .systemGray4
         self.firstSectionView = firstSectionView
         firstSectionView.layer.cornerRadius = 13
         firstSectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -113,6 +115,41 @@ class PromtSettingsController: UIViewController {
             toggleSwitch.topAnchor.constraint(equalTo: skipSilenceLabel.topAnchor),
             toggleSwitch.trailingAnchor.constraint(equalTo: hareView.trailingAnchor)
         ])
+    }
+    
+    private func setupSecondSectionView() {
+        let secondSectionView = UIView()
+        self.secondSectionView = secondSectionView
+        secondSectionView.backgroundColor = .systemGray4
+        secondSectionView.layer.cornerRadius = 13
+        secondSectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(secondSectionView)
+        
+        let enhanceRecordingLabel = UILabel()
+        enhanceRecordingLabel.text = "Enhance Recording"
+        enhanceRecordingLabel.textColor = .white
+        enhanceRecordingLabel.font = UIFont.systemFont(ofSize: 18)
+        enhanceRecordingLabel.translatesAutoresizingMaskIntoConstraints = false
+        secondSectionView.addSubview(enhanceRecordingLabel)
+        
+        let toggleSwitch = UISwitch()
+        toggleSwitch.isOn = false
+        toggleSwitch.translatesAutoresizingMaskIntoConstraints = false
+        secondSectionView.addSubview(toggleSwitch)
+        
+        NSLayoutConstraint.activate([
+            secondSectionView.topAnchor.constraint(equalTo: firstSectionView.bottomAnchor, constant: 16),
+            secondSectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            secondSectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            secondSectionView.heightAnchor.constraint(equalToConstant: 52),
+            
+            enhanceRecordingLabel.centerYAnchor.constraint(equalTo: secondSectionView.centerYAnchor),
+            enhanceRecordingLabel.leadingAnchor.constraint(equalTo: secondSectionView.leadingAnchor, constant: 16),
+            
+            toggleSwitch.centerYAnchor.constraint(equalTo: enhanceRecordingLabel.centerYAnchor),
+            toggleSwitch.trailingAnchor.constraint(equalTo: secondSectionView.trailingAnchor, constant: -16)
+        ])
+        
     }
     
     private func setupTopToolbar() {

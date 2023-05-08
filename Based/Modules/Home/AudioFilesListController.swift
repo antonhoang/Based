@@ -127,14 +127,11 @@ class AudioFilesListController: UIViewController {
 //        transcribeAudiofileController.navigationItem.largeTitleDisplayMode = .never
 //        navigationController?.pushViewController(transcribeAudiofileController, animated: true)
 
-        
-        let yourVC = PromtSettingsController()
-
-        if let sheet = yourVC.sheetPresentationController {
+        let promt = PromtSettingsController()
+        if let sheet = promt.sheetPresentationController {
             sheet.detents = [.medium()]
         }
-        self.present(yourVC, animated: true, completion: nil)
-
+        present(promt, animated: true, completion: nil)
     }
     
     @objc func recordButtonTapped() {
