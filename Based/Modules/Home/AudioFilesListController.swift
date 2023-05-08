@@ -73,7 +73,8 @@ class AudioFilesListController: UIViewController {
         )
         promtButton.setImage(arrowUpImage, for: .normal)
         promtButton.tintColor = .black
-        
+        promtButton.addTarget(self, action: #selector(openPromt), for: .touchUpInside)
+
         promtView.addSubview(promtButton)
         NSLayoutConstraint.activate([
             promtButton.centerYAnchor.constraint(equalTo: promtView.centerYAnchor),
@@ -119,6 +120,11 @@ class AudioFilesListController: UIViewController {
         outerBorderLayer?.borderWidth = outerBorderWidth
         outerBorderLayer?.cornerRadius = (outerBorderLayer?.frame.width ?? 0) / 2
         outerBorderLayer?.masksToBounds = true
+    }
+    
+    @objc func openPromt() {
+        let transcribeAudiofileController = TranscribeAudiofileController()
+        navigationController?.pushViewController(transcribeAudiofileController, animated: true)
     }
     
     @objc func recordButtonTapped() {
