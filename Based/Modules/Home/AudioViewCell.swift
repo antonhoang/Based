@@ -17,9 +17,8 @@ class AudioViewCell: UITableViewCell {
     }
     
     private let additionalView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
+        let preview = AudioPreviewController()
+        return preview.view
     }()
     
     let additionalViewHeight: CGFloat = 100
