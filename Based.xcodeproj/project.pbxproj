@@ -11,6 +11,7 @@
 		7A2D38362A09189600F191DA /* AudioFilesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D38352A09189600F191DA /* AudioFilesListController.swift */; };
 		7A2D38472A092CAF00F191DA /* AudioPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D38462A092CAF00F191DA /* AudioPreviewController.swift */; };
 		7A2D38492A09555400F191DA /* TranscribeAudiofileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D38482A09555400F191DA /* TranscribeAudiofileController.swift */; };
+		7A2D384B2A095ED300F191DA /* PromtSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2D384A2A095ED300F191DA /* PromtSettings.swift */; };
 		7A41AA6629FED057009A50E4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA6529FED057009A50E4 /* Extensions.swift */; };
 		7A41AA6829FED05D009A50E4 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA6729FED05D009A50E4 /* Helpers.swift */; };
 		7A41AA6B29FED1DF009A50E4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A41AA6A29FED1DF009A50E4 /* NetworkManager.swift */; };
@@ -45,6 +46,7 @@
 		7A2D38352A09189600F191DA /* AudioFilesListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFilesListController.swift; sourceTree = "<group>"; };
 		7A2D38462A092CAF00F191DA /* AudioPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPreviewController.swift; sourceTree = "<group>"; };
 		7A2D38482A09555400F191DA /* TranscribeAudiofileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscribeAudiofileController.swift; sourceTree = "<group>"; };
+		7A2D384A2A095ED300F191DA /* PromtSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromtSettings.swift; sourceTree = "<group>"; };
 		7A41AA6529FED057009A50E4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7A41AA6729FED05D009A50E4 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		7A41AA6A29FED1DF009A50E4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				7A2D38352A09189600F191DA /* AudioFilesListController.swift */,
 				7A2D38462A092CAF00F191DA /* AudioPreviewController.swift */,
 				7A2D38482A09555400F191DA /* TranscribeAudiofileController.swift */,
+				7A2D384A2A095ED300F191DA /* PromtSettings.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				7A41AA7B29FF0987009A50E4 /* SpeechRecognizer.swift in Sources */,
 				7A41AA6B29FED1DF009A50E4 /* NetworkManager.swift in Sources */,
 				7A77351529E7F4FA000F4FFA /* ViewController.swift in Sources */,
+				7A2D384B2A095ED300F191DA /* PromtSettings.swift in Sources */,
 				7A2D38492A09555400F191DA /* TranscribeAudiofileController.swift in Sources */,
 				7A2D38362A09189600F191DA /* AudioFilesListController.swift in Sources */,
 				7A2D38342A09183900F191DA /* AudioViewCell.swift in Sources */,

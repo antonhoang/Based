@@ -123,8 +123,18 @@ class AudioFilesListController: UIViewController {
     }
     
     @objc func openPromt() {
-        let transcribeAudiofileController = TranscribeAudiofileController()
-        navigationController?.pushViewController(transcribeAudiofileController, animated: true)
+//        let transcribeAudiofileController = TranscribeAudiofileController()
+//        transcribeAudiofileController.navigationItem.largeTitleDisplayMode = .never
+//        navigationController?.pushViewController(transcribeAudiofileController, animated: true)
+
+        
+        let yourVC = PromtSettingsController()
+
+        if let sheet = yourVC.sheetPresentationController {
+            sheet.detents = [.medium()]
+        }
+        self.present(yourVC, animated: true, completion: nil)
+
     }
     
     @objc func recordButtonTapped() {
