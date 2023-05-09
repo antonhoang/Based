@@ -10,22 +10,24 @@ import UIKit
 
 class AudioViewCell: UITableViewCell {
     
+    typealias Action = () -> Void
+    public var shareFileAction: Action?
+    public let additionalPreview: AudioPreviewController = {
+        let preview = AudioPreviewController()
+        return preview
+    }()
+    
+    let additionalPreviewHeight: CGFloat = 100
+    
     var isExpanded = false {
         didSet {
             updateViewVisibility()
         }
     }
     
-    private let additionalView: UIView = {
-        let preview = AudioPreviewController()
-        return preview.view
-    }()
-    
-    let additionalViewHeight: CGFloat = 100
-    
     private func updateViewVisibility() {
-        additionalView.isHidden = !isExpanded
-        additionalView.frame.size.height = isExpanded ? additionalViewHeight : 0
+        additionalPreview.view.isHidden = !isExpanded
+        additionalPreview.view.frame.size.height = isExpanded ? additionalPreviewHeight : 0
     }
     
     private let titleLabel: UILabel = {
@@ -51,12 +53,13 @@ class AudioViewCell: UITableViewCell {
     
     private let shareButton: UIButton = {
         let share = UIButton()
-        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold)
+        let config = UIImage.SymbolConfiguration(pointSize: 24)
         let image = UIImage(
             systemName: "square.and.arrow.up",
             withConfiguration: config
         )
         share.setImage(image, for: .normal)
+        share.tintColor = .lightGray
         return share
     }()
     
@@ -67,7 +70,7 @@ class AudioViewCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(detailLabel)
         contentView.addSubview(durationLabel)
-        contentView.addSubview(additionalView)
+        contentView.addSubview(additionalPreview.view)
         contentView.addSubview(shareButton)
         
         
@@ -75,7 +78,7 @@ class AudioViewCell: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         detailLabel.translatesAutoresizingMaskIntoConstraints = false
         durationLabel.translatesAutoresizingMaskIntoConstraints = false
-        additionalView.translatesAutoresizingMaskIntoConstraints = false
+        additionalPreview.view.translatesAutoresizingMaskIntoConstraints = false
         shareButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -89,16 +92,26 @@ class AudioViewCell: UITableViewCell {
             durationLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             durationLabel.bottomAnchor.constraint(equalTo: detailLabel.bottomAnchor),
             
-            additionalView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            additionalView.topAnchor.constraint(equalTo: detailLabel.bottomAnchor, constant: 8),
-            additionalView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            additionalView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            additionalPreview.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            additionalPreview.view.topAnchor.constraint(equalTo: detailLabel.bottomAnchor, constant: 8),
+            additionalPreview.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            additionalPreview.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             shareButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             shareButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         ])
+        
+        setupActions()
     }
     
+    private func setupActions() {
+        shareButton.addTarget(self, action: #selector(handleShare), for: .touchUpInside)
+    }
+    
+    @objc func handleShare() {
+        shareFileAction?()
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -107,20 +120,20 @@ class AudioViewCell: UITableViewCell {
         super.layoutSubviews()
         
         if isExpanded {
-            additionalView.isHidden = false
+            additionalPreview.view.isHidden = false
             shareButton.isHidden = false
             durationLabel.isHidden = true
-            additionalView.frame = CGRect(
+            additionalPreview.view.frame = CGRect(
                 x: 0,
                 y: contentView.frame.size.height,
                 width: contentView.frame.size.width,
-                height: additionalViewHeight
+                height: additionalPreviewHeight
             )
         } else {
-            additionalView.isHidden = true
+            additionalPreview.view.isHidden = true
             shareButton.isHidden = true
             durationLabel.isHidden = false
-            additionalView.frame = CGRect(
+            additionalPreview.view.frame = CGRect(
                 x: 0,
                 y: contentView.frame.size.height,
                 width: contentView.frame.size.width,

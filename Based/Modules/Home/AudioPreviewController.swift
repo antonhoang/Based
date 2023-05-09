@@ -16,6 +16,12 @@ class AudioPreviewController: UIViewController {
     private weak var openFileButton: UIButton!
     private weak var deleteFileButton: UIButton!
     
+    typealias Action = (() -> Void)
+    
+    public var playAction: Action?
+    public var openFileAction: Action?
+    public var deleteFileAction: Action?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,34 +54,40 @@ class AudioPreviewController: UIViewController {
         // Create and configure the play button
         let playButton = UIButton()
         self.playButton = playButton
-        let symbolPlayButtonConfiguration = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold)
+        let symbolPlayButtonConfiguration = UIImage.SymbolConfiguration(pointSize: 24)
         let playImage = UIImage(
             systemName: "play.fill",
             withConfiguration: symbolPlayButtonConfiguration
         )
         playButton.setImage(playImage, for: .normal)
+        playButton.tintColor = .lightGray
+        playButton.addTarget(self, action: #selector(handlePlayFile), for: .touchUpInside)
         playButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(playButton)
         
         let openFileButton = UIButton()
         self.openFileButton = openFileButton
-        let openFileButtonConfiguration = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold)
+        let openFileButtonConfiguration = UIImage.SymbolConfiguration(pointSize: 24)
         let openFileButtonImage = UIImage(
             systemName: "doc.text",
             withConfiguration: openFileButtonConfiguration
         )
         openFileButton.setImage(openFileButtonImage, for: .normal)
+        openFileButton.tintColor = .lightGray
+        openFileButton.addTarget(self, action: #selector(handleOpenFile), for: .touchUpInside)
         openFileButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(openFileButton)
         
         let deleteFileButton = UIButton()
         self.deleteFileButton = deleteFileButton
-        let deleteFileButtonConfiguration = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold)
+        let deleteFileButtonConfiguration = UIImage.SymbolConfiguration(pointSize: 24)
         let deleteFileButtonImage = UIImage(
             systemName: "trash",
             withConfiguration: deleteFileButtonConfiguration
         )
         deleteFileButton.setImage(deleteFileButtonImage, for: .normal)
+        deleteFileButton.tintColor = .lightGray
+        deleteFileButton.addTarget(self, action: #selector(handleDeleteFile), for: .touchUpInside)
         deleteFileButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(deleteFileButton)
         
@@ -106,12 +118,17 @@ class AudioPreviewController: UIViewController {
         durationBeginLabel.text = "0:00" // Set the initial begin duration
         durationEndLabel.text = "-3:42" // Set the initial end duration
         
-        // Add target action for the play button
-        playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
     }
     
-    @objc func playButtonTapped() {
-        // Handle play button tap event
-        // Implement your play/pause functionality here
+    @objc private func handlePlayFile() {
+        playAction?()
+    }
+    
+    @objc private func handleOpenFile() {
+        openFileAction?()
+    }
+    
+    @objc private func handleDeleteFile() {
+        deleteFileAction?()
     }
 }

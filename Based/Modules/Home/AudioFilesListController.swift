@@ -123,10 +123,6 @@ class AudioFilesListController: UIViewController {
     }
     
     @objc func openPromt() {
-//        let transcribeAudiofileController = TranscribeAudiofileController()
-//        transcribeAudiofileController.navigationItem.largeTitleDisplayMode = .never
-//        navigationController?.pushViewController(transcribeAudiofileController, animated: true)
-
         let promt = PromtSettingsController()
         if let sheet = promt.sheetPresentationController {
             sheet.detents = [.medium()]
@@ -171,6 +167,22 @@ extension AudioFilesListController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.cellForRow(at: indexPath) as? AudioViewCell else {
             return
         }
+        cell.shareFileAction = { [weak self] in
+            if let url = URL(string: "") {
+                self?.shareFile(fileURL: url)
+            }
+        }
+        cell.additionalPreview.playAction = {
+            
+        }
+        
+        cell.additionalPreview.deleteFileAction = {
+            
+        }
+        
+        cell.additionalPreview.openFileAction = { [weak self] in
+            self?.openTranscribe()
+        }
         
         if cell.isExpanded {
             tableView.deselectRow(at: indexPath, animated: true)
@@ -194,9 +206,35 @@ extension AudioFilesListController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let cell = tableView.cellForRow(at: indexPath) as? AudioViewCell, cell.isExpanded {
-            return cell.contentView.frame.size.height + cell.additionalViewHeight
+            return cell.contentView.frame.size.height + cell.additionalPreviewHeight
         } else {
             return UITableView.automaticDimension
         }
+    }
+    
+}
+
+extension AudioFilesListController {
+    
+    private func shareFile(fileURL: URL) {
+        let activityViewController = UIActivityViewController(
+            activityItems: [fileURL],
+            applicationActivities: nil
+        )
+        activityViewController.popoverPresentationController?.sourceView = view
+        activityViewController.completionWithItemsHandler = { activityType, completed, returnedItems, error in
+            if completed {
+                print("File shared successfully")
+            } else {
+                print("Sharing cancelled or failed")
+            }
+        }
+        present(activityViewController, animated: true, completion: nil)
+    }
+    
+    private func openTranscribe() {
+        let transcribeAudioFileController = TranscribeAudioFileController()
+        transcribeAudioFileController.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(transcribeAudioFileController, animated: true)
     }
 }

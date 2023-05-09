@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TranscribeAudiofileController: UIViewController {
+class TranscribeAudioFileController: UIViewController {
     
     private weak var textResult: UITextView!
     private let previewConstant: CGFloat = 150
