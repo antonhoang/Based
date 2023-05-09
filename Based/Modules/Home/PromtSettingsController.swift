@@ -15,7 +15,10 @@ class PromtSettingsController: UIViewController {
     private weak var firstSectionView: UIView!
     private weak var playbackSpeedLabel: UILabel!
     private weak var secondSectionView: UIView!
-
+    private weak var slider: UISlider!
+    private weak var skipSilenceToggle: UISwitch!
+    private weak var enhanceRecordToggle: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray2
@@ -23,6 +26,25 @@ class PromtSettingsController: UIViewController {
         setupPlaybackSpeedLabel()
         setupFirstSectionView()
         setupSecondSectionView()
+    }
+    
+    @objc func handleReset() {
+        slider.value = 0
+        skipSilenceToggle.isOn = false
+        enhanceRecordToggle.isOn = false
+    }
+    
+    @objc func handleClose() {
+        dismiss(animated: true)
+    }
+    @objc func handleSkipSilence() {
+        
+    }
+    @objc func handleEnhanceRecord() {
+        
+    }
+    @objc func handleSlider() {
+        
     }
     
     private func setupPlaybackSpeedLabel() {
@@ -52,6 +74,7 @@ class PromtSettingsController: UIViewController {
             withConfiguration: UIImage.SymbolConfiguration(pointSize: 24)
         )
         let tortoiseView = UIImageView(image: tortoise)
+        tortoiseView.tintColor = .lightGray
         tortoiseView.translatesAutoresizingMaskIntoConstraints = false
         firstSectionView.addSubview(tortoiseView)
         
@@ -60,12 +83,15 @@ class PromtSettingsController: UIViewController {
             withConfiguration: UIImage.SymbolConfiguration(pointSize: 24)
         )
         let hareView = UIImageView(image: hare)
+        hareView.tintColor = .lightGray
         hareView.translatesAutoresizingMaskIntoConstraints = false
         firstSectionView.addSubview(hareView)
         
         let slider = UISlider()
+        self.slider = slider
         slider.minimumValue = 0
         slider.maximumValue = 7
+        slider.tintColor = .systemGray
         slider.translatesAutoresizingMaskIntoConstraints = false
         firstSectionView.addSubview(slider)
         
@@ -82,7 +108,9 @@ class PromtSettingsController: UIViewController {
         firstSectionView.addSubview(skipSilenceLabel)
         
         let toggleSwitch = UISwitch()
+        self.skipSilenceToggle = toggleSwitch
         toggleSwitch.isOn = false
+        toggleSwitch.addTarget(self, action: #selector(handleSkipSilence), for: .touchUpInside)
         toggleSwitch.translatesAutoresizingMaskIntoConstraints = false
         firstSectionView.addSubview(toggleSwitch)
         
@@ -133,7 +161,9 @@ class PromtSettingsController: UIViewController {
         secondSectionView.addSubview(enhanceRecordingLabel)
         
         let toggleSwitch = UISwitch()
+        self.enhanceRecordToggle = toggleSwitch
         toggleSwitch.isOn = false
+        toggleSwitch.addTarget(self, action: #selector(handleEnhanceRecord), for: .touchUpInside)
         toggleSwitch.translatesAutoresizingMaskIntoConstraints = false
         secondSectionView.addSubview(toggleSwitch)
         
@@ -159,8 +189,10 @@ class PromtSettingsController: UIViewController {
         view.addSubview(topToolbarContainerView)
         
         let resetButton = UIButton(type: .system)
-        resetButton.setImage(UIImage(systemName: "arrow.counterclockwise"), for: .normal)
-        resetButton.tintColor = .black
+        resetButton.setTitle("Reset", for: .normal)
+        resetButton.setTitleColor(.darkGray, for: .normal)
+        resetButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        resetButton.addTarget(self, action: #selector(handleReset), for: .touchUpInside)
         resetButton.translatesAutoresizingMaskIntoConstraints = false
         topToolbarContainerView.addSubview(resetButton)
         
@@ -174,6 +206,7 @@ class PromtSettingsController: UIViewController {
         let xButton = UIButton(type: .system)
         xButton.setImage(UIImage(systemName: "xmark"), for: .normal)
         xButton.tintColor = .black
+        xButton.addTarget(self, action: #selector(handleClose), for: .touchUpInside)
         xButton.translatesAutoresizingMaskIntoConstraints = false
         topToolbarContainerView.addSubview(xButton)
         
@@ -184,7 +217,7 @@ class PromtSettingsController: UIViewController {
             topToolbarContainerView.heightAnchor.constraint(equalToConstant: 40),
 
             resetButton.leadingAnchor.constraint(equalTo: topToolbarContainerView.leadingAnchor, constant: 16),
-            resetButton.topAnchor.constraint(equalTo: topToolbarContainerView.topAnchor, constant: 16),
+            resetButton.topAnchor.constraint(equalTo: topToolbarContainerView.topAnchor, constant: 10),
             
             titleLabel.centerXAnchor.constraint(equalTo: topToolbarContainerView.centerXAnchor),
             titleLabel.topAnchor.constraint(equalTo: topToolbarContainerView.topAnchor, constant: 16),
